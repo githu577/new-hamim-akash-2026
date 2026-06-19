@@ -259,7 +259,7 @@ async function sendListPage(api, threadID, senderID, type, page, limit = 10) {
 
     const sent = await api.sendMessage(msg.trim(), threadID);
     if (totalPages > 1) {
-      const h = { name: "goatstore", messageID: sent.messageID, listType: type, page, totalPages, limit, mode: "list", senderID };
+      const h = { commandName: "goatstore", messageID: sent.messageID, listType: type, page, totalPages, limit, mode: "list", senderID };
       global.GoatBot.onReply.set(sent.messageID, h);
       global.GoatBot.onReaction.set(sent.messageID, h);
     }
@@ -292,7 +292,7 @@ async function sendSearchPage(api, threadID, senderID, query, page, limit = 5) {
 
     const sent = await api.sendMessage(msg.trim(), threadID);
     if (totalPages > 1) {
-      const h = { name: "goatstore", messageID: sent.messageID, query, page, totalPages, limit, mode: "search", senderID };
+      const h = { commandName: "goatstore", messageID: sent.messageID, query, page, totalPages, limit, mode: "search", senderID };
       global.GoatBot.onReply.set(sent.messageID, h);
       global.GoatBot.onReaction.set(sent.messageID, h);
     }
@@ -353,7 +353,7 @@ module.exports = {
   config: {
     name: "goatstore",
     aliases: ["gs", "cmdstore", "commandstore"],
-    version: "4.0.0",
+    version: "5.0.0",
     author: "rX & EryXenX",
     countDown: 3,
     role: 2,
