@@ -1,119 +1,179 @@
-[
-    {
-        "key": "dbln",
-        "value": "%7B%2261562699223797%22%3A%226SiEw2ZB%22%2C%22100082567070479%22%3A%22tCEvYUEk%22%2C%2261587625033754%22%3A%22WfSxA2lr%22%7D",
-        "domain": "facebook.com",
-        "path": "/login/device-based/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.862Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
+"use strict";
+
+module.exports = {
+  config: {
+    name: "pending",
+    version: "1.0.9",
+    author: "EryXenX",
+    aliases: [],
+    role: 2,
+    shortDescription: "Manage bot's waiting groups",
+    longDescription: "Approve or cancel pending groups",
+    category: "owner",
+    countDown: 10
+  },
+
+  languages: {
+    en: {
+      invaildNumber: "%1 is not a valid number",
+      cancelSuccess: "❌ Cancelled %1 thread(s)",
+      approveSuccess: "✅ Approved %1 thread(s)",
+      cantGetPendingList: "⚠️ Can't get pending list",
+      returnListClean: "No pending group found"
     },
-    {
-        "key": "datr",
-        "value": "0wvXaREcDLCtA383If8bRT2_",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
+    bn: {
+      invaildNumber: "%1 সঠিক নাম্বার নয়",
+      cancelSuccess: "❌ %1 টি থ্রেড বাতিল করা হয়েছে",
+      approveSuccess: "✅ %1 টি থ্রেড অনুমোদন করা হয়েছে",
+      cantGetPendingList: "⚠️ পেন্ডিং লিস্ট আনা যাচ্ছে না",
+      returnListClean: "কোনো পেন্ডিং গ্রুপ পাওয়া যায়নি"
     },
-    {
-        "key": "sb",
-        "value": "1QvXaZAplXliRguDLRh0eO-5",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
+    hi: {
+      invaildNumber: "%1 एक मान्य नंबर नहीं है",
+      cancelSuccess: "❌ %1 थ्रेड रद्द किए गए",
+      approveSuccess: "✅ %1 थ्रेड स्वीकृत किए गए",
+      cantGetPendingList: "⚠️ पेंडिंग लिस्ट प्राप्त नहीं हो सकी",
+      returnListClean: "कोई पेंडिंग ग्रुप नहीं मिला"
     },
-    {
-        "key": "ps_l",
-        "value": "1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
+    tl: {
+      invaildNumber: "%1 ay hindi wastong numero",
+      cancelSuccess: "❌ %1 thread(s) ang kinansela",
+      approveSuccess: "✅ %1 thread(s) ang na-approve",
+      cantGetPendingList: "⚠️ Hindi makuha ang pending list",
+      returnListClean: "Walang nahanap na pending group"
     },
-    {
-        "key": "ps_n",
-        "value": "1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "c_user",
-        "value": "61587625033754",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "xs",
-        "value": "37%3AKKv2wKqXExEheQ%3A2%3A1781370787%3A-1%3A-1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "pas",
-        "value": "61562699223797%3ABC7FZFpbIl%2C61587419326012%3ASarAdvT4f0%2C100082567070479%3ADg7EPM3luQ%2C61588694452800%3AtE3rLBqNCy%2C61587625033754%3ADE1N6RXAkm",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "vpd",
-        "value": "v1%3B560x350x2.0562500953674316",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "locale",
-        "value": "en_US",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.863Z"
-    },
-    {
-        "key": "fr",
-        "value": "1SaxKPyMB6vwZJo3b.AWcQK-QcFVa0PrRbBfoXiVF2atlVO2Jw7hLKU8gMvXh2ssIKTYQ.BqK_-u..AAA.0.0.BqOAEA.AWeokyj9o2qL_tMHEiDf6iLCklE",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.863Z",
-        "lastAccessed": "2026-06-22T14:58:39.864Z"
-    },
-    {
-        "key": "fbl_st",
-        "value": "100433169%3BT%3A29700919",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.864Z",
-        "lastAccessed": "2026-06-22T14:58:39.864Z"
-    },
-    {
-        "key": "wl_cbv",
-        "value": "v2%3Bclient_version%3A3194%3Btimestamp%3A1782055168",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-06-22T14:58:39.864Z",
-        "lastAccessed": "2026-06-22T14:58:39.864Z"
+    ar: {
+      invaildNumber: "%1 ليس رقمًا صالحًا",
+      cancelSuccess: "❌ تم إلغاء %1 محادثة",
+      approveSuccess: "✅ تمت الموافقة على %1 محادثة",
+      cantGetPendingList: "⚠️ لا يمكن الحصول على قائمة الانتظار",
+      returnListClean: "لم يتم العثور على أي مجموعة معلقة"
     }
-]
+  },
+
+  _getText(key, ...args) {
+    const lang = global.GoatBot?.config?.language || "en";
+    const text = (this.languages[lang] && this.languages[lang][key]) || this.languages.en[key] || key;
+    return args.length
+      ? text.replace("%1", args[0]).replace("%2", args[1] || "")
+      : text;
+  },
+
+  onStart: async function ({ api, event }) {
+    const { threadID, messageID, senderID } = event;
+
+    let pendingList = [];
+
+    try {
+      const other = await api.getThreadList(100, null, ["OTHER"]);
+      const pending = await api.getThreadList(100, null, ["PENDING"]);
+
+      pendingList = [...other, ...pending].filter(
+        g => g.isGroup && g.isSubscribed
+      );
+    } catch {
+      return api.sendMessage(
+        this._getText("cantGetPendingList"),
+        threadID,
+        messageID
+      );
+    }
+
+    if (!pendingList.length)
+      return api.sendMessage(
+        this._getText("returnListClean"),
+        threadID,
+        messageID
+      );
+
+    const prefix = global.GoatBot?.config?.prefix || "!";
+
+    let msg = "";
+    pendingList.forEach((g, i) => {
+      msg += `${i + 1}️⃣ ${g.name}\n🆔 ${g.threadID}\n\n`;
+    });
+
+    const finalMsg =
+`📋 Pending Groups (${pendingList.length})
+━━━━━━━━━━━━━━━━━━━
+
+${msg}━━━━━━━━━━━━━━━━━━━
+✅ Approve » ${prefix}pending 1 2
+❌ Cancel  » ${prefix}pending c 1 2`;
+
+    return api.sendMessage(finalMsg, threadID, (err, info) => {
+      global.GoatBot.onReply.set(info.messageID, {
+        commandName: this.config.name,
+        author: senderID,
+        pending: pendingList
+      });
+    }, messageID);
+  },
+
+  onReply: async function ({ event, Reply, api }) {
+    const { author, pending } = Reply;
+
+    if (String(event.senderID) !== String(author)) return;
+
+    const input = event.body.trim().toLowerCase().split(/\s+/);
+    const botID = api.getCurrentUserID();
+    const prefix = global.GoatBot?.config?.prefix || "!";
+    let count = 0;
+
+    if (input[0] === "c" || input[0] === "cancel") {
+      for (let i = 1; i < input.length; i++) {
+        const idx = parseInt(input[i]);
+
+        if (isNaN(idx) || idx <= 0 || idx > pending.length)
+          return api.sendMessage(
+            this._getText("invaildNumber", input[i]),
+            event.threadID
+          );
+
+        await api.removeUserFromGroup(botID, pending[idx - 1].threadID);
+        count++;
+      }
+
+      return api.sendMessage(
+        this._getText("cancelSuccess", count),
+        event.threadID
+      );
+    }
+
+    for (const v of input) {
+      const idx = parseInt(v);
+
+      if (isNaN(idx) || idx <= 0 || idx > pending.length)
+        return api.sendMessage(
+          this._getText("invaildNumber", v),
+          event.threadID
+        );
+
+      const tID = pending[idx - 1].threadID;
+
+      await api.sendMessage(
+`🎉 GROUP APPROVED 
+
+👋 Hello everyone!
+🤖 I am now active in this group.
+
+⚙️ Prefix: ${prefix}
+📜 Type ${prefix}help to see all commands
+
+🚀 Bot is ready to assist you!`,
+        tID
+      );
+
+      const nickNameBot = global.GoatBot?.config?.nickNameBot;
+      if (nickNameBot)
+        await api.changeNickname(nickNameBot, tID, botID);
+
+      count++;
+    }
+
+    return api.sendMessage(
+      this._getText("approveSuccess", count),
+      event.threadID
+    );
+  }
+};
