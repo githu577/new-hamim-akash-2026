@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "slot",
-  version: "2.0",
-  author: "MOHAMMAD AKASH",
+  version: "3.0.0",
+  author: "EryXenX",
   role: 0,
   category: "economy",
   shortDescription: "Slot Machine Game"
@@ -22,9 +22,9 @@ module.exports.onStart = async function ({ api, event, args, usersData }) {
 
   const symbols = ["🍎", "🍌", "🍒", "⭐", "7️⃣"];
   const win = Math.random() * 100 < 60;
+  const winAmount = bet;
 
   let slot1, slot2, slot3;
-  const winAmount = bet;
 
   if (win) {
     const symbol = symbols[Math.floor(Math.random() * symbols.length)];
@@ -41,9 +41,50 @@ module.exports.onStart = async function ({ api, event, args, usersData }) {
 
   await usersData.set(senderID, { data: { ...userData.data, money: balance } });
 
-  const resultText = win
-    ? `🎰 SLOT GAME 🎰\n──────────────\n\n🎲 Result →\n${slot1} | ${slot2} | ${slot3}\n\n🏆 Jackpot Winner!\n💵 Earned +${winAmount}$\n\n💰 Balance → ${balance}$`
-    : `🎰 SLOT GAME 🎰\n──────────────\n\n🎲 Result →\n${slot1} | ${slot2} | ${slot3}\n\n💸 You Lose!\n💵 Lost -${bet}$\n\n💰 Balance → ${balance}$`;
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  api.sendMessage(resultText, threadID, messageID);
+  const buildFrame = (s1, s2, s3, status) => {
+    return `🎰 SLOT MACHINE 🎰\n──────────────────\n🎲 ${status} →\n[ ${s1} | ${s2} | ${s3} ]`;
+  };
+
+  const initialMsg = `${buildFrame("❓", "❓", "❓", "Spinning")}\n\nGood luck! 🍀`;
+
+  api.sendMessage(initialMsg, threadID, (err, info) => {
+    if (err || !info) return;
+
+    const messageIDForEdit = info.messageID;
+
+    (async () => {
+      await delay(700);
+      api.editMessage(buildFrame(slot1, "❓", "❓", "Spinning"), messageIDForEdit);
+
+      await delay(700);
+      api.editMessage(buildFrame(slot1, slot2, "❓", "Spinning"), messageIDForEdit);
+
+      await delay(700);
+
+      let finalText;
+      if (win) {
+        finalText =
+          `${buildFrame(slot1, slot2, slot3, "Result")}\n` +
+          `──────────────────\n` +
+          `🏆 JACKPOT WINNER! 🏆\n` +
+          `💵 Earned → +${winAmount}$\n` +
+          `💰 Balance → ${balance}$\n` +
+          `──────────────────\n` +
+          `Bet again? Type: slot <amount>`;
+      } else {
+        finalText =
+          `${buildFrame(slot1, slot2, slot3, "Result")}\n` +
+          `──────────────────\n` +
+          `💸 YOU LOSE!\n` +
+          `💵 Lost → -${bet}$\n` +
+          `💰 Balance → ${balance}$\n` +
+          `──────────────────\n` +
+          `Better luck next time! 🍀`;
+      }
+
+      api.editMessage(finalText, messageIDForEdit);
+    })();
+  }, messageID);
 };
