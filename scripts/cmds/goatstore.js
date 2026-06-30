@@ -26,13 +26,17 @@ function hashContent(content) {
 }
 
 function detectFramework(code) {
-  const isGoat =
-    /module\.exports\s*=\s*\{/.test(code) &&
-    /onStart\s*[:(]|onChat\s*[:(]|onLoad\s*[:(]/.test(code);
-  const isMirai =
-    /module\.exports\.config\s*=/.test(code) ||
-    /module\.exports\.run\s*=/.test(code);
-  return (isGoat && !isMirai) ? "goat" : "mirai";
+  const isMiraiRun = /module\.exports\.run\s*=/.test(code);
+  if (isMiraiRun) return "mirai";
+
+  const hasGoatExportsBlock = /module\.exports\s*=\s*\{/.test(code);
+  const hasGoatExportsProps  = /(?:module\.)?exports\.config\s*=\s*\{/.test(code) ||
+                                /(?:module\.)?exports\.onStart\s*=/.test(code);
+  const hasGoatHooks = /onStart\s*[:(=]|onChat\s*[:(=]|onLoad\s*[:(=]/.test(code);
+
+  const isGoat = (hasGoatExportsBlock || hasGoatExportsProps) && hasGoatHooks;
+
+  return isGoat ? "goat" : "mirai";
 }
 
 async function checkSelfUpdate() {
@@ -101,14 +105,11 @@ async function runAutoSync() {
       if (detectFramework(content) !== "goat") continue;
 
       try {
-        const pasteRes = await axios.post("https://pastebin-api.vercel.app/paste", { text: content });
-        if (!pasteRes.data?.id) continue;
-        const rawUrl = `https://pastebin-api.vercel.app/raw/${pasteRes.data.id}`;
         const author = content.match(/author\s*:\s*["'`](.*?)["'`]/)?.[1]
                     || content.match(/credits\s*:\s*["'`](.*?)["'`]/)?.[1]
                     || "Unknown";
         const category = content.match(/category\s*:\s*["'`](.*?)["'`]/)?.[1] || "Uncategorized";
-        const res = await axios.post(`${API_BASE}/miraistore/upload`, { rawUrl, framework: "goat", kind, author, category });
+        const res = await axios.post(`${API_BASE}/miraistore/upload`, { rawCode: content, framework: "goat", kind, author, category });
         if (!res.data?.error) cache[cacheKey] = hash;
       } catch (_) {}
 
@@ -140,9 +141,8 @@ async function animateInstall(api, threadID, name) {
 async function animateUpload(api, threadID, name) {
   const steps = [
     { label: "Reading file",         pct: 25,  delay: 500 },
-    { label: "Uploading to paste",   pct: 55,  delay: 900 },
-    { label: "Registering to store", pct: 85,  delay: 700 },
-    { label: "Finalizing",           pct: 100, delay: 500 }
+    { label: "Registering to store", pct: 65,  delay: 900 },
+    { label: "Finalizing",           pct: 100, delay: 600 }
   ];
   const info = await api.sendMessage(`📤 Uploading ${name}...\n\n◖ Preparing upload...\n[░░░░░░░░░░] 0%`, threadID);
   for (let i = 0; i < steps.length; i++) {
@@ -250,8 +250,10 @@ async function sendListPage(api, threadID, senderID, type, page, limit = 10) {
     data.commands.forEach(cmd => {
       msg += `╭─‣ ${cmd.name} 〄\n`;
       msg += `├‣ ID : ${cmd.id}\n`;
+      msg += `├‣ Version : ${cmd.version || "N/A"}\n`;
       msg += `├‣ Author : ${cmd.author}\n`;
       msg += `├‣ Category : ${cmd.category}\n`;
+      msg += `├‣ Views : 👁️ ${cmd.views || 0}\n`;
       msg += `╰────────────◊\n`;
       msg += ` ✰ Upload : ${new Date(cmd.uploadDate || Date.now()).toDateString()}\n\n`;
     });
@@ -282,9 +284,11 @@ async function sendSearchPage(api, threadID, senderID, query, page, limit = 5) {
     all.forEach(cmd => {
       msg += `╭─‣ ${cmd.name} 〄\n`;
       msg += `├‣ ID : ${cmd.id}\n`;
+      msg += `├‣ Version : ${cmd.version || "N/A"}\n`;
       msg += `├‣ Type : ${cmd.type === "goat-event" ? "🎯 Event" : "⚡ Command"}\n`;
       msg += `├‣ Author : ${cmd.author}\n`;
       msg += `├‣ Category : ${cmd.category}\n`;
+      msg += `├‣ Views : 👁️ ${cmd.views || 0}\n`;
       msg += `╰────────────◊\n`;
       msg += ` ✰ Upload : ${new Date(cmd.uploadDate || Date.now()).toDateString()}\n\n`;
     });
@@ -314,18 +318,8 @@ async function uploadFile(api, threadID, filePath, kind) {
   let pid;
   try { pid = await animateUpload(api, threadID, displayName); } catch (_) {}
 
-  let rawUrl;
   try {
-    const pr = await axios.post("https://pastebin-api.vercel.app/paste", { text: data });
-    if (!pr.data?.id) throw new Error("No paste ID.");
-    rawUrl = `https://pastebin-api.vercel.app/raw/${pr.data.id}`;
-  } catch (err) {
-    if (pid) api.unsendMessage(pid);
-    return api.sendMessage(`❌ Paste failed:\n${err.message}`, threadID);
-  }
-
-  try {
-    const res = await axios.post(`${API_BASE}/miraistore/upload`, { rawUrl, framework: "goat", kind });
+    const res = await axios.post(`${API_BASE}/miraistore/upload`, { rawCode: data, framework: "goat", kind });
     if (res.data?.error) { if (pid) api.unsendMessage(pid); return api.sendMessage(`⚠️ ${res.data.error}`, threadID); }
     const author  = data.match(/author\s*:\s*["'`](.*?)["'`]/)?.[1]
                  || data.match(/credits\s*:\s*["'`](.*?)["'`]/)?.[1]
@@ -353,7 +347,7 @@ module.exports = {
   config: {
     name: "goatstore",
     aliases: ["gs", "cmdstore", "commandstore"],
-    version: "6.0.0",
+    version: "7.0.0",
     author: "rX & EryXenX",
     countDown: 3,
     role: 2,
@@ -626,8 +620,8 @@ module.exports = {
           `├‣ ID : ${data.id}\n` +
           `╰────────────◊\n` +
           `⭔ Description: ${data.description || "No description"}\n` +
-          `⭔ Upload : ${new Date(data.uploadDate || Date.now()).toDateString()}\n` +
-          `🌐 URL : ${data.rawUrl}`,
+          `⭔ Upload : ${new Date(data.uploadDate || Date.now()).toDateString()}` +
+          (data.rawUrl ? `\n🌐 URL : ${data.rawUrl}` : ""),
           threadID
         );
       }
