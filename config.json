@@ -28,7 +28,7 @@
     " "
   ],
   "typingIndicator": {
-    "enable": true,
+    "enable": false,
     "delayMin": 3000,
     "delayMax": 4000,
     "refreshMs": 15000,
