@@ -13,7 +13,7 @@
   "language": "en",
   "notesLanguage": "change language using ISO 639-1 code",
   "nickNameBot": "—͞ 𝐐𝐔𝐄𝐄𝐍 🎀❤️‍🩹",
-  "prefix": "/",
+  "prefix": "-",
   "noPrefix": {
     "enable": false,
     "notes": "true = only bot admins can use commands without prefix | false = everyone must use prefix"
@@ -24,9 +24,17 @@
   },
   "adminBot": [
     "61583835186508",
-    " ",
-    " "
+    "61590558624840",
+    "61589622663091"
   ],
+  "typingIndicator": {
+    "enable": false,
+    "delayMin": 3000,
+    "delayMax": 4000,
+    "refreshMs": 15000,
+    "maxDurationMs": 15000,
+    "notes": "If enable = true, bot shows typing... for a random delay (delayMin-delayMax ms) before replying, and keeps re-sending it every refreshMs ms until the command finishes (needed because Fac[...]"
+  },
   "reactUnsend": {
     "enable": true,
     "onlyAdmin": true,
