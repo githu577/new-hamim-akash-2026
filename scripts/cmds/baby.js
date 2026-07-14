@@ -207,7 +207,7 @@ ${formatted}`
       }
 
       // prefixes
-      const prefixes = ["baby ","bby ","xan ","bbz ","mari ","মারিয়া ","bot "];
+      const prefixes = ["baby ","bby ","xan ","bbz ","liza ","মারিয়া ","bot "];
       const prefix = prefixes.find(p => raw.startsWith(p));
       if (prefix) {
         const q = raw.replace(prefix,"").trim();
